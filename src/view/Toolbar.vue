@@ -5,23 +5,21 @@
     class="blue"
     dark
     color="primary">
-    <v-toolbar-side-icon @click="drawerToggleClicked"/>
+    <v-toolbar-side-icon @click="showDrawer"/>
     <span>{{title}}</span>
   </v-toolbar>
 </template>
 
 <script>
-  import {TOGGLE_DRAWER} from "../store/modules/navigator/NavigatorMutations";
   import {TEMPERATURES_VIEW} from '../view/routes/TemperaturesView'
   import {SETTINGS_VIEW} from '../view/routes/SettingsView'
+  import {TOGGLE_DRAWER} from "../store/modules/navigator/NavigatorStateModule";
 
   export default {
     name: "Toolbar",
 
     computed: {
       title() {
-        debugger
-
         switch (this.$route.name) {
           case TEMPERATURES_VIEW:
             return 'Pomiary'
@@ -32,8 +30,10 @@
     },
 
     methods: {
-      drawerToggleClicked() {
-        this.$store.commit(TOGGLE_DRAWER)
+      showDrawer() {
+        this.$store.commit(TOGGLE_DRAWER, {
+          show: true
+        })
       }
     }
   }

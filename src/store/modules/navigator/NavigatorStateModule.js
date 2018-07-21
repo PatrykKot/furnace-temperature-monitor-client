@@ -1,4 +1,4 @@
-import {TOGGLE_DRAWER} from "./NavigatorMutations";
+export const TOGGLE_DRAWER = 'toggleDrawer'
 
 export default {
   state: {
@@ -6,8 +6,8 @@ export default {
   },
 
   mutations: {
-    [TOGGLE_DRAWER](state) {
-      state.showDrawer = !state.showDrawer
+    [TOGGLE_DRAWER](state, payload) {
+      state.showDrawer = payload.show
     }
   }
 }

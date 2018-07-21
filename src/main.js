@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import router from './router'
 import Vuetify from 'vuetify'
-import App from './App'
+import DrawerLayout from 'vue-drawer-layout'
 import RootStore from './store/RootStore'
+
+Vue.use(DrawerLayout)
+Vue.use(Vuetify)
+Vue.config.productionTip = false
+
+import App from './App'
 
 import 'vuetify/dist/vuetify.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-
-Vue.use(Vuetify)
-Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
