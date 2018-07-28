@@ -6,16 +6,17 @@
     dark
     color="primary">
     <v-toolbar-side-icon @click="showDrawer"/>
-    <span>{{title}}</span>
+    <v-toolbar-title class="white--text">{{title}}</v-toolbar-title>
   </v-toolbar>
 </template>
 
 <script>
-  import {TEMPERATURES_VIEW} from '../view/routes/TemperaturesView'
-  import {SETTINGS_VIEW} from '../view/routes/SettingsView'
-  import {TOGGLE_DRAWER} from "../store/modules/navigator/NavigatorStateModule";
+    import {TEMPERATURES_VIEW} from '../view/routes/TemperaturesView'
+    import {SETTINGS_VIEW} from '../view/routes/SettingsView'
+    import {TOGGLE_DRAWER} from "../store/modules/navigator/NavigatorStateModule";
+    import {SENSOR_SETTINGS_VIEW} from '../view/routes/SensorSettingsView'
 
-  export default {
+    export default {
     name: "Toolbar",
 
     computed: {
@@ -25,6 +26,8 @@
             return 'Pomiary'
           case SETTINGS_VIEW:
             return 'Ustawienia'
+            case SENSOR_SETTINGS_VIEW:
+                return 'Ustawienia czujnika'
         }
       }
     },

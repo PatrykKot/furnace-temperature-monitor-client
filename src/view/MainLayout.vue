@@ -1,9 +1,7 @@
 <template>
-  <main>
-    <v-content>
-      <router-view/>
-    </v-content>
-  </main>
+  <v-content>
+    <router-view/>
+  </v-content>
 </template>
 
 <script>
