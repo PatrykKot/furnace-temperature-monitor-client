@@ -1,9 +1,8 @@
 <template>
     <v-container grid-list-xl text-xs-center>
         <v-layout row wrap>
-            <v-flex xs6 md2 :key="index" v-for="(temperature, index) in temperatures">
-                <single-temperature @click="selectedTemperature = temperature; bottomSheet = true"
-                                    :temperature="temperature"/>
+            <v-flex xs6 md2 :key="index" v-for="(sensor, index) in sensors">
+                <single-temperature @click="selectedSensor = sensor; bottomSheet = true" :sensor="sensor"/>
             </v-flex>
         </v-layout>
         <sensor-settings-sheet v-model="bottomSheet" @onEditClicked="onSensorEditClicked"/>
@@ -24,13 +23,13 @@
         components: {SensorSettingsSheet, SingleTemperature},
 
         computed: mapState({
-            temperatures: state => state.temperature.currentTemperatures
+            sensors: state => state.temperature.sensors
         }),
 
         data() {
             return ({
                 bottomSheet: false,
-                selectedTemperature: null
+                selectedSensor: null
             })
         },
 
@@ -42,7 +41,7 @@
                     this.$router.push({
                         name: SENSOR_SETTINGS_VIEW,
                         params: {
-                            uuid: me.selectedTemperature.sensor.uuid
+                            uuid: me.selectedSensor.uuid
                         }
                     })
                 }, 250)

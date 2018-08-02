@@ -1,35 +1,27 @@
 <template>
     <v-card @click.native="() => $emit('click')">
-        <v-card-title class="title">{{temperature.sensor.name}}</v-card-title>
+        <v-card-title class="title">
+            <span>{{sensor.name}}</span>
+            <div v-if="sensor && sensor.alarm && sensor.value > sensor.alarm"
+                 class="alarm-icon"/>
+        </v-card-title>
         <v-card-text class="display-2">
-            <animate-number
-                    ref="numberAnimator"
-                    :from="temperature.value"
-                    :to="temperature.value"
-                    :from-color="getColorForTemperature(temperature.value)"
-                    :to-color="getColorForTemperature(temperature.value)"
-                    duration="900"
-                    easing="easeInOutSine"
-                    mode="manual"/>
+            <animated-number
+                    :number="{
+            value: sensor.value,
+            color: getColorForTemperature(sensor.value)
+            }"/>
         </v-card-text>
     </v-card>
 </template>
 
 <script>
+    import AnimatedNumber from "./AnimatedNumber";
+
     export default {
         name: 'SingleTemperature',
-        props: ['temperature'],
-
-        watch: {
-            temperature(currentTemperature, previousTemperature) {
-                let previous = previousTemperature.value
-                let current = currentTemperature.value
-
-                this.$refs.numberAnimator.reset(previous, current,
-                    this.getColorForTemperature(previous), this.getColorForTemperature(current))
-                this.$refs.numberAnimator.start()
-            }
-        },
+        components: {AnimatedNumber},
+        props: ['sensor'],
 
         methods: {
             getColorForTemperature(value) {
@@ -57,3 +49,13 @@
         }
     }
 </script>
+
+<style scoped>
+    .alarm-icon {
+        background-image: url("../assets/icon/fire.png");
+        margin: 0 5px;
+        height: 20px;
+        width: 20px;
+        background-size: 100%;
+    }
+</style>
