@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import App from './App.vue'
 
-import router from './router'
+import router from './router/router'
 import store from './store/RootStore'
 
 import DrawerLayout from 'vue-drawer-layout'
@@ -12,7 +12,7 @@ import VueAnimateNumber from 'vue-animate-number'
 
 import './registerServiceWorker'
 
-import TemperatureService from "./services/temperature/TemperatureService";
+import LiveTemperatureService from "./services/temperature/LiveTemperatureService";
 
 import 'vuetify/dist/vuetify.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -27,5 +27,5 @@ new Vue({
     router,
     store,
     render: h => h(App),
-    created: () => TemperatureService.startDaemon()
+    created: () => LiveTemperatureService.startDaemon()
 }).$mount('#app');
