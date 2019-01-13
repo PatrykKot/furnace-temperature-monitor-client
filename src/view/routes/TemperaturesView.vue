@@ -14,12 +14,16 @@
                                v-if="false"/>
         </v-toolbar>
         <v-content>
-            <v-layout row wrap>
-                <v-flex :key="index" md2 v-for="(sensor, index) in sensors" xs6>
-                    <single-temperature :sensor="sensor" @click="selectedSensor = sensor; bottomSheet = true"/>
-                </v-flex>
-            </v-layout>
-            <sensor-settings-sheet @onEditClicked="onSensorEditClicked" v-model="bottomSheet"/>
+            <v-container grid-list-xl text-xs-center>
+                <v-layout row wrap>
+                    <v-flex :key="index" md2 v-for="(sensor, index) in sensors" xs6>
+                        <single-temperature :sensor="sensor"
+                                            @click="selectedSensor = sensor; bottomSheet = true"/>
+                    </v-flex>
+                </v-layout>
+                <sensor-settings-sheet @onEditClicked="onSensorEditClicked"
+                                       v-model="bottomSheet"/>
+            </v-container>
         </v-content>
     </div>
 </template>

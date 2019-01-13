@@ -1,6 +1,6 @@
-export const UPDATE_TEMPERATURE = 'updateTemperatures'
-export const UPDATE_SENSOR = 'updateSensors'
-export const ADD_SENSORS = 'addSensors'
+import {clearArray} from "../../../utils/arrayUtil";
+
+export const UPDATE_SENSORS = 'addSensors'
 
 export default {
     state: {
@@ -8,34 +8,23 @@ export default {
     },
 
     mutations: {
-        [ADD_SENSORS](state, payload) {
+        [UPDATE_SENSORS](state, payload) {
+            clearArray(state.sensors)
             payload.sensors.forEach(sensor => {
                 state.sensors.push({
-                    uuid: sensor.uuid,
+                    id: sensor.id,
                     name: sensor.name,
-                    alarm: sensor.alarm,
-                    value: 0
+                    address: sensor.address,
+                    alarmValue: sensor.alarmValue,
+                    isAlive: sensor.isAlive,
+                    initialized: sensor.initialized,
+                    temperature: {
+                        id: sensor.temperature.id,
+                        date: sensor.temperature.date,
+                        value: sensor.temperature.value
+                    }
                 })
             })
         },
-
-        [UPDATE_TEMPERATURE](state, payload) {
-            let stateSensor = state.sensors.find(item => item.uuid === payload.uuid)
-            if (stateSensor) {
-                stateSensor.value = payload.value
-            }
-            else {
-                console.log('Cannot find sensor with uuid ' + payload.uuid)
-            }
-        },
-
-        [UPDATE_SENSOR](state, payload) {
-            let uuid = payload.uuid
-            let sensorSettings = payload.sensorSettings
-
-            let foundSensor = state.sensors.find(sensor => sensor.uuid == uuid)
-            foundSensor.alarm = sensorSettings.alarm
-            foundSensor.name = sensorSettings.name
-        }
     }
 }

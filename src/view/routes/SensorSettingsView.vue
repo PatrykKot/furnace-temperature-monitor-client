@@ -49,7 +49,7 @@
 <script>
     import {VTextField} from "vuetify/es5/components/VTextField";
     import SingleTemperature from "../../components/SingleTemperature";
-    import SensorService from '../../services/temperature/SensorService'
+    // import SensorService from '../../services/temperature/SensorService'
 
     export const SENSOR_SETTINGS_VIEW = "SensorSettingsView";
 
@@ -87,13 +87,13 @@
         methods: {
             onSaveClicked() {
                 let me = this;
-                SensorService.updateSensor({
-                    uuid: me.uuid,
-                    sensorSettings: {
-                        name: me.sensorName,
-                        alarm: me.enableAlarm ? Number(me.alarm) : null
-                    }
-                });
+                // SensorService.updateSensor({
+                //     uuid: me.uuid,
+                //     sensorSettings: {
+                //         name: me.sensorName,
+                //         alarm: me.enableAlarm ? Number(me.alarm) : null
+                //     }
+                // });
 
                 this.showSnackbar(true, 'Konfiguracja została zapisana')
             },

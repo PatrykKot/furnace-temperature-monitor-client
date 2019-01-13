@@ -2,15 +2,11 @@
     <v-card @click.native="() => $emit('click')">
         <v-card-title class="title">
             <span>{{sensor.name}}</span>
-            <div v-if="sensor && sensor.alarm && sensor.value > sensor.alarm"
+            <div v-if="showAlarm"
                  class="alarm-icon"/>
         </v-card-title>
         <v-card-text class="display-2">
-            <animated-number
-                    :number="{
-            value: sensor.value,
-            color: getColorForTemperature(sensor.value)
-            }"/>
+            <animated-number :number="number"/>
         </v-card-text>
     </v-card>
 </template>
@@ -23,13 +19,29 @@
         components: {AnimatedNumber},
         props: ['sensor'],
 
-        methods: {
-            getColorForTemperature(value) {
+        computed: {
+            number() {
+                return {
+                    value: this.sensor.temperature.value,
+                    color: this.color
+                }
+            },
+
+            color() {
+                let value = this.sensor.temperature.value
+
                 let blue = this.normalizeColor(-51 / 4 * value + 765)
                 let red = this.normalizeColor(51 / 4 * value - 510)
                 return this.rgbToHex(red, 0, blue)
             },
 
+            showAlarm() {
+                let sensor = this.sensor
+                return sensor && sensor.alarmValue && sensor.temperature.value > sensor.alarmValue
+            }
+        },
+
+        methods: {
             normalizeColor(value) {
                 if (value < 0) {
                     return 0
