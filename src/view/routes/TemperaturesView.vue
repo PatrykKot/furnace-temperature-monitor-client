@@ -1,12 +1,27 @@
 <template>
-    <v-container grid-list-xl text-xs-center>
-        <v-layout row wrap>
-            <v-flex xs6 md2 :key="index" v-for="(sensor, index) in sensors">
-                <single-temperature @click="selectedSensor = sensor; bottomSheet = true" :sensor="sensor"/>
-            </v-flex>
-        </v-layout>
-        <sensor-settings-sheet v-model="bottomSheet" @onEditClicked="onSensorEditClicked"/>
-    </v-container>
+    <div>
+        <v-toolbar color="primary"
+                   dark
+                   extended
+                   extension-height="7">
+            <v-toolbar-title>
+                TODO tytuł
+            </v-toolbar-title>
+            <v-progress-linear :indeterminate="true"
+                               class="ma-0"
+                               color="white"
+                               slot="extension"
+                               v-if="false"/>
+        </v-toolbar>
+        <v-content>
+            <v-layout row wrap>
+                <v-flex :key="index" md2 v-for="(sensor, index) in sensors" xs6>
+                    <single-temperature :sensor="sensor" @click="selectedSensor = sensor; bottomSheet = true"/>
+                </v-flex>
+            </v-layout>
+            <sensor-settings-sheet @onEditClicked="onSensorEditClicked" v-model="bottomSheet"/>
+        </v-content>
+    </div>
 </template>
 
 <script>
@@ -15,7 +30,7 @@
     import SensorSettingsSheet from "../../components/SensorSettingsSheet";
     import {SENSOR_SETTINGS_VIEW} from './SensorSettingsView'
 
-    export const TEMPERATURES_VIEW = 'TemperaturesView'
+    export const TEMPERATURES_VIEW = 'TemperaturesView';
 
     export default {
         name: "TemperaturesView",
@@ -35,8 +50,8 @@
 
         methods: {
             onSensorEditClicked() {
-                let me = this
-                me.bottomSheet = false
+                let me = this;
+                me.bottomSheet = false;
                 setTimeout(() => {
                     this.$router.push({
                         name: SENSOR_SETTINGS_VIEW,
@@ -44,7 +59,7 @@
                             uuid: me.selectedSensor.uuid
                         }
                     })
-                }, 250)
+                }, 200)
             }
         }
     }

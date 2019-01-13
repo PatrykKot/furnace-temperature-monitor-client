@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "short_name": "my-app",
+  "name": "Kontrola temperatur pieca",
+  "short_name": "Piec",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",

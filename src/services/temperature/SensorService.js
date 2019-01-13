@@ -1,22 +1,10 @@
-import {mapRandom, randomUuid, randomWord} from "./utils/RandomUtils";
 import RootStore from "../../store/RootStore";
 import {ADD_SENSORS, UPDATE_SENSOR} from "../../store/modules/temperature/TemperatureStateModule";
-import {cloneObject} from "./utils/Utils";
-import firestore from '../../database/firestore'
+import {cloneObject} from "../../utils/objectUtils";
 
-let temperatureState = RootStore.state.temperature
+let temperatureState = RootStore.state.temperature;
 
 class SensorService {
-    constructor() {
-        this.sensorsCollection = firestore.collection('sensors')
-
-        this.sensorsCollection.onSnapshot(querySnapshot => {
-            querySnapshot.forEach(function (sensor) {
-                console.log(sensor.id, " => ", sensor.data());
-            });
-        })
-    }
-
     getSensors() {
         if (temperatureState.sensors.length == 0) {
             this._mockSensors()
@@ -26,12 +14,7 @@ class SensorService {
     }
 
     _mockSensors() {
-        let mockedSensors = mapRandom(5, 6, () => ({
-            uuid: randomUuid(),
-            name: randomWord(),
-            alarm: null,
-            value: null
-        }))
+        let mockedSensors = []
 
         RootStore.commit(ADD_SENSORS, {
             sensors: cloneObject(mockedSensors)
