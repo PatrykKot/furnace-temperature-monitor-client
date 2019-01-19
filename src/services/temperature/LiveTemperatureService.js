@@ -18,8 +18,11 @@ class LiveTemperatureService {
     }
 
     _runWebsocketDaemon() {
-        let sockJsClient = new SockJs(PROXY_URL + 'stomp');
-        let stomp = Stomp.over(sockJsClient);
+        let sockJsClient = new SockJs(PROXY_URL + 'stomp')
+        let stomp = Stomp.over(sockJsClient)
+        stomp.debug = () => {
+        }
+
         stomp.connect({}, () => {
             stomp.subscribe('/topic/temperature/latest', message => {
                 let temperatures = JSON.parse(message.body);

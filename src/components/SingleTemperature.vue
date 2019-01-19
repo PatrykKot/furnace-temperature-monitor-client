@@ -1,14 +1,17 @@
 <template>
-    <v-card @click.native="() => $emit('click')">
-        <v-card-title class="title">
-            <span>{{sensor.name}}</span>
-            <div v-if="showAlarm"
-                 class="alarm-icon"/>
-        </v-card-title>
-        <v-card-text class="display-2">
-            <animated-number :number="number"/>
-        </v-card-text>
-    </v-card>
+    <div class="single-temperature-container">
+        <v-card :color="cardColor"
+                @click="$emit('click')">
+            <v-card-title class="title">
+                <span>{{sensor.name}}</span>
+                <div class="alarm-icon"
+                     v-if="showAlarm"/>
+            </v-card-title>
+            <v-card-text class="display-2">
+                <animated-number :number="number"/>
+            </v-card-text>
+        </v-card>
+    </div>
 </template>
 
 <script>
@@ -38,6 +41,12 @@
             showAlarm() {
                 let sensor = this.sensor
                 return sensor && sensor.alarmValue && sensor.temperature.value > sensor.alarmValue
+            },
+
+            cardColor() {
+                if (!this.sensor.isAlive) {
+                    return 'rgb(228, 228, 228)'
+                }
             }
         },
 
@@ -69,5 +78,9 @@
         height: 20px;
         width: 20px;
         background-size: 100%;
+    }
+
+    .single-temperature-container:hover {
+        cursor: pointer;
     }
 </style>

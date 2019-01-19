@@ -37,6 +37,10 @@
                             :value="added"
                             disabled
                             label="Pierwsze podłączenie"/>
+                    <v-text-field
+                            label="Maksymalny czas nieaktywności [s]"
+                            type="number"
+                            v-model="maxInactiveTimeSec"/>
                     <v-checkbox
                             label="Alarm"
                             v-model="enableAlarm"/>
@@ -74,6 +78,7 @@
             enableAlarm: false,
             alarmValue: 0,
             added: '',
+            maxInactiveTimeSec: 0,
 
             snackbar: false,
             snackbarMessage: '',
@@ -94,6 +99,7 @@
                         this.enableAlarm = !!sensor.alarmValue
                         this.alarmValue = sensor.alarmValue
                         this.added = formatAddedDate(sensor.added)
+                        this.maxInactiveTimeSec = sensor.maxInactiveTimeSec
                     })
             },
 
@@ -102,7 +108,8 @@
                 SensorService.update({
                     id: this.id,
                     name: this.name,
-                    alarmValue: this.enableAlarm ? this.alarmValue : null
+                    alarmValue: this.enableAlarm ? this.alarmValue : null,
+                    maxInactiveTimeSec: this.maxInactiveTimeSec
                 })
                     .then(() => this.showSnackbar(true, 'Konfiguracja została zapisana'))
                     .catch(() => this.showSnackbar(false, 'Wystąpił błąd przy zapisywaniu'))

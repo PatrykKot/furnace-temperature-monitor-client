@@ -20,7 +20,12 @@
                 {{snackbarMessage}}
             </v-snackbar>
             <v-card>
-                <v-list two-line>
+                <v-list :subheader="noSensors"
+                        two-line>
+                    <v-subheader class="text-xs-center"
+                                 v-if="noSensors">
+                        Nie znaleziono nowych czujników
+                    </v-subheader>
                     <v-list-tile
                             :key="sensor.id"
                             v-for="sensor in sensors">
@@ -65,6 +70,12 @@
             snackbarSuccess: true,
             progress: false
         }),
+
+        computed: {
+            noSensors() {
+                return this.sensors.length == 0 && this.progress == false
+            }
+        },
 
         created() {
             this.reloadSensors()

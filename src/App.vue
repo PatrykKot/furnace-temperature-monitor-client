@@ -1,12 +1,12 @@
 <template>
-  <parent-layout/>
+    <parent-layout/>
 </template>
 
 <script>
-  import ParentLayout from './view/ParentLayout'
+    import ParentLayout from './view/ParentLayout'
 
-  export default {
-    name: 'app',
-    components: {ParentLayout},
-  }
+    export default {
+        name: 'app',
+        components: {ParentLayout},
+    }
 </script>
