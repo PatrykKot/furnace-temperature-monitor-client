@@ -8,7 +8,12 @@ class TemperatureService {
     }
 
     getSimplifiedHistoryBetween(sensorId, from, to) {
-        return axios.get(PROXY_URL + 'temperature/history/' + sensorId + '/between/' + from + '/' + to + '/simplified')
+        return axios
+            .get(PROXY_URL + 'temperature/history/' + sensorId + '/between/' + from + '/' + to + '/simplified', {
+                params: {
+                    tolerance: 0.1
+                }
+            })
             .then(result => result.data)
     }
 }
